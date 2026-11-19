@@ -7,6 +7,9 @@ Reads a JSON take-off file and writes a traceable BOQ workbook (.xlsx) with:
   - Sheet nesting (cutting plan summary) for panel materials
   - Steel weights computed from section designation
   - Assumptions / conflicts register
+  - BOM sheet (Bill of Materials): what to BUY, grouped by material + spec,
+    with stock bars from 1D cutting (first-fit-decreasing), sheets from nesting,
+    purchase weight, utilisation, supplier / part no. / lead time
   - An independent Python re-computation printed to stdout for cross-checking
 
 Usage:
@@ -19,6 +22,12 @@ Units supported per item ("unit"):
   nos  -> count                                (fixings, PSUs, modules)
   kg   -> length x count x kg/m                (steel sections; kg/m from "section")
   sheet-> pieces nested on stock sheets        (acrylic, ACP, MDF, aluminum sheet)
+
+Optional BOM fields per item:
+  bar_length_m  stock bar length for kg/m items (kg defaults to 6.0 m; m items
+                are bought by the metre unless this is given)
+  saw_kerf_mm   saw cut allowance for bar cutting (default 3)
+  part_no, supplier, lead_time   procurement info shown on the BOM sheet
 """
 import argparse
 import json
@@ -59,7 +68,7 @@ EXAMPLE = {
          "pieces": [{"w": 1100, "h": 900, "n": 2}], "waste_pct": 0, "rate": 520,
          "source": "A-102 logo box", "status": "CALCULATED"},
         {"id": "3.1", "description": "Aluminum angle trim 25x25x2", "material": "Aluminum",
-         "unit": "m", "length_m": 4.2, "count": 8, "waste_pct": 7, "rate": 18,
+         "unit": "m", "length_m": 4.2, "count": 8, "waste_pct": 7, "rate": 18, "bar_length_m": 6.0,
          "source": "A-101 corner trims", "status": "CALCULATED"},
         {"id": "3.2", "description": "Vinyl graphics (printed, laminated)", "material": "Vinyl",
          "unit": "m2", "length_m": 1.1, "width_m": 0.9, "count": 2, "waste_pct": 10, "rate": 85,
@@ -162,6 +171,123 @@ def nest_sheets(pieces, stock, kerf=3, allow_rotation=True):
     return len(sheets), util, sheets, net
 
 
+# ---------------------------------------------------------------- 1D bar cutting
+DEFAULT_BAR_M = 6.0
+STATUS_RANK = ["VERIFIED", "CALCULATED", "PROPOSED", "ASSUMED", "TO BE CONFIRMED", "NOT VERIFIED", "CONFLICT"]
+
+
+def cut_bars(lengths_m, bar_m, kerf_m=0.003):
+    """First-fit-decreasing 1D cutting. Pieces longer than a bar are split into
+    full bars + remainder and reported as needing a splice.
+    Returns (bars, net_m, overlong_pieces)."""
+    remaining = []
+    overlong = []
+    queue = []
+    for L in lengths_m:
+        if L > bar_m + 1e-9:
+            overlong.append(L)
+            full = int(L // bar_m)
+            remaining.extend([0.0] * full)  # full bars, no usable offcut
+            rest = L - full * bar_m
+            if rest > 1e-9:
+                queue.append(rest)
+        else:
+            queue.append(L)
+    for L in sorted(queue, reverse=True):
+        for i, rem in enumerate(remaining):
+            if L <= rem + 1e-9:
+                remaining[i] = rem - L - kerf_m
+                break
+        else:
+            remaining.append(bar_m - L - kerf_m)
+    return len(remaining), sum(lengths_m), overlong
+
+
+def build_bom(rows, nesting):
+    """Group BOQ rows into purchase lines (what to buy)."""
+    nest_by_id = {ns["id"]: ns for ns in nesting}
+    groups = {}
+    for it in rows:
+        u = it["unit"]
+        mat = it.get("material", "")
+        bar_given = it.get("bar_length_m")
+        is_plate = u == "kg" and it["section"].upper().replace(" ", "").startswith(("PL", "FLAT", "FB"))
+        if is_plate and not bar_given:
+            bar = None  # plates are cut from plate stock: buy by weight
+            key = (mat, it["section"], "kg", None)
+            spec, punit = it["section"], "kg"
+        elif u == "kg":
+            bar = float(bar_given or DEFAULT_BAR_M)
+            key = (mat, it["section"], "bar", bar)
+            spec, punit = it["section"], "bar"
+        elif u == "m" and bar_given:
+            bar = float(bar_given)
+            key = (mat, it["description"], "bar", bar)
+            spec, punit = it["description"], "bar"
+        elif u == "sheet":
+            bar = None
+            spec = f"{it['stock'][0]}×{it['stock'][1]} mm sheet"
+            key = (mat, spec, "sheet", None)
+            punit = "sheet"
+        else:
+            bar = None
+            spec = it["description"]
+            key = (mat, spec, u, None)
+            punit = u
+        g = groups.setdefault(key, {
+            "material": mat, "spec": spec, "punit": punit, "bar_m": bar, "unit": u,
+            "kgpm": it.get("_kgpm"), "lengths": [], "kerf_m": float(it.get("saw_kerf_mm", 3)) / 1000,
+            "net": 0.0, "qty": 0.0, "net_eq": 0.0, "items": [], "rates": [], "statuses": [],
+            "part_no": "", "supplier": "", "lead_time": "", "notes": []})
+        g["items"].append(it["id"])
+        g["statuses"].append(it.get("status", "ASSUMED").upper())
+        if it.get("rate") is not None:
+            g["rates"].append(float(it["rate"]))
+        for k in ("part_no", "supplier", "lead_time"):
+            if it.get(k) and not g[k]:
+                g[k] = str(it[k])
+        g["net"] += it["_net"]
+        if punit == "bar":
+            g["lengths"].extend([float(it["length_m"])] * int(it.get("count", 0)))
+        elif punit == "sheet":
+            g["qty"] += nest_by_id[it["id"]]["sheets"]
+            g["net_eq"] += nest_by_id[it["id"]]["net_eq"]
+        elif punit in ("nos", "kg"):
+            g["qty"] += it["_proc"]
+        else:  # m / m2 bought by measure incl. waste
+            g["qty"] += it["_total"]
+
+    bom = []
+    for i, g in enumerate(groups.values(), 1):
+        g["no"] = f"M-{i:02d}"
+        g["util"] = None
+        if g["punit"] == "bar":
+            bars, net_len, over = cut_bars(g["lengths"], g["bar_m"], g["kerf_m"])
+            g["qty"] = bars
+            g["net_len"] = net_len
+            g["util"] = 100.0 * net_len / (bars * g["bar_m"]) if bars else 0.0
+            g["notes"].append(f"1D FFD cutting, kerf {g['kerf_m'] * 1000:.0f} mm — planning estimate")
+            for L in over:
+                g["notes"].append(f"Piece {L:.3f} m > {g['bar_m']} m bar: SPLICE required (TO BE CONFIRMED)")
+        elif g["punit"] == "sheet":
+            g["util"] = 100.0 * g["net_eq"] / g["qty"] if g["qty"] else 0.0
+        if len(set(g["rates"])) > 1:
+            g["notes"].append("Rates differ between BOQ items: " + ", ".join(f"{r:g}" for r in g["rates"]) + " — first rate used")
+        g["rate"] = g["rates"][0] if g["rates"] else None
+        g["status"] = max(g["statuses"], key=lambda s: STATUS_RANK.index(s) if s in STATUS_RANK else 3)
+        # independent purchase amount for the stdout cross-check
+        if g["rate"] is None:
+            g["amount"] = None
+        elif g["punit"] == "bar" and g["unit"] == "kg":
+            g["amount"] = g["qty"] * g["bar_m"] * g["kgpm"] * g["rate"]
+        elif g["punit"] == "bar":
+            g["amount"] = g["qty"] * g["bar_m"] * g["rate"]
+        else:
+            g["amount"] = g["qty"] * g["rate"]
+        bom.append(g)
+    return bom
+
+
 # ---------------------------------------------------------------- compute
 def compute(data):
     rows = []
@@ -199,13 +325,15 @@ def compute(data):
 
 
 # ---------------------------------------------------------------- excel
-def write_xlsx(data, rows, nesting, out):
+def write_xlsx(data, rows, nesting, out, bom=None):
     from openpyxl import Workbook
     from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
     from openpyxl.utils import get_column_letter
 
     p = data["project"]
     cur = p.get("currency", "SAR")
+    if bom is None:
+        bom = build_bom(rows, nesting)
     wb = Workbook()
     thin = Side(style="thin", color="BFBFBF")
     border = Border(left=thin, right=thin, top=thin, bottom=thin)
@@ -232,6 +360,7 @@ def write_xlsx(data, rows, nesting, out):
         ws.cell(i, 1, k).fill = PatternFill("solid", fgColor=c)
     ws["A21"] = "Quantities are net measured; waste is shown separately; procurement quantity is what to buy."
     ws["A22"] = "Rates are budgetary unless the Source column cites a supplier quotation."
+    ws["A23"] = "BOM sheet = Bill of Materials: stock bars, sheets and packs to purchase, grouped by material/spec."
     ws.column_dimensions["A"].width = 22
     ws.column_dimensions["B"].width = 80
 
@@ -303,6 +432,70 @@ def write_xlsx(data, rows, nesting, out):
         b.column_dimensions[get_column_letter(i)].width = w
     b.freeze_panes = "C2"
 
+    # ---- BOM (Bill of Materials)
+    m = wb.create_sheet("BOM")
+    mh = ["BOM No", "Material", "Specification", "Purchase unit", "Qty to buy", "Stock length (m)",
+          "kg/m", "Purchase weight (kg)", "Net used", "Utilisation %", "Used in BOQ items",
+          "Part no.", "Supplier", "Lead time", f"Rate ({cur})", "Rate per", f"Amount ({cur})", "Status", "Notes"]
+    for c, h in enumerate(mh, 1):
+        cell = m.cell(1, c, h)
+        cell.fill, cell.font, cell.border = head_fill, head_font, border
+        cell.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
+    r = 2
+    for g in bom:
+        is_bar = g["punit"] == "bar"
+        m.cell(r, 1, g["no"])
+        m.cell(r, 2, g["material"])
+        m.cell(r, 3, g["spec"])
+        m.cell(r, 4, f"bar {g['bar_m']:g} m" if is_bar else g["punit"])
+        m.cell(r, 5, round(g["qty"], 3))
+        if is_bar:
+            m.cell(r, 6, g["bar_m"])
+        if g["unit"] == "kg":
+            m.cell(r, 7, g["kgpm"])  # unrounded so Excel matches the stdout cross-check
+            m.cell(r, 8, f"=E{r}*F{r}*G{r}" if is_bar else f"=E{r}")
+            net_txt, rate_per, amt = f"{g['net']:.3f} kg", "kg", f"=H{r}*O{r}"
+        elif is_bar:
+            net_txt, rate_per, amt = f"{g['net_len']:.3f} m", "m", f"=E{r}*F{r}*O{r}"
+        elif g["punit"] == "sheet":
+            net_txt, rate_per, amt = f"{g['net_eq']:.3f} sheet-eq.", "sheet", f"=E{r}*O{r}"
+        else:
+            net_txt, rate_per, amt = f"{g['net']:.3f} {g['punit']}", g["punit"], f"=E{r}*O{r}"
+        m.cell(r, 9, net_txt)
+        if g["util"] is not None:
+            m.cell(r, 10, round(g["util"], 1))
+        m.cell(r, 11, ", ".join(g["items"]))
+        m.cell(r, 12, g["part_no"])
+        m.cell(r, 13, g["supplier"] or "TO BE CONFIRMED")
+        m.cell(r, 14, g["lead_time"] or "TO BE CONFIRMED")
+        if g["rate"] is not None:
+            m.cell(r, 15, g["rate"])
+            m.cell(r, 17, amt)
+        m.cell(r, 16, rate_per)
+        sc = m.cell(r, 18, g["status"])
+        if g["status"] in tag_fill:
+            sc.fill = PatternFill("solid", fgColor=tag_fill[g["status"]])
+        m.cell(r, 19, "; ".join(g["notes"]))
+        for c in range(1, 20):
+            m.cell(r, c).border = border
+            m.cell(r, c).alignment = Alignment(vertical="top", wrap_text=c in (3, 11, 19))
+        for c in (5, 6, 7, 8):
+            m.cell(r, c).number_format = "#,##0.000"
+        m.cell(r, 15).number_format = "#,##0.00"
+        m.cell(r, 17).number_format = "#,##0.00"
+        r += 1
+    mlast = r - 1
+    m.cell(r, 16, "TOTAL").font = Font(bold=True)
+    m.cell(r, 17, f"=SUM(Q2:Q{mlast})").font = Font(bold=True)
+    m.cell(r, 17).number_format = "#,##0.00"
+    m.cell(r + 2, 1, "BOM = what to buy (stock bars / sheets / packs), grouped by material + specification. "
+                     "BOQ = measured quantities. BOM amount ≥ BOQ amount because offcuts are bought.")
+    m.cell(r + 3, 1, "Bar counts use first-fit-decreasing 1D cutting; confirm on the cutting optimiser. "
+                     "Supplier, part no. and lead time are TO BE CONFIRMED unless given.")
+    for i, w in enumerate([8, 14, 30, 12, 10, 10, 8, 13, 16, 11, 16, 12, 16, 12, 11, 8, 13, 16, 50], 1):
+        m.column_dimensions[get_column_letter(i)].width = w
+    m.freeze_panes = "C2"
+
     # ---- Nesting
     n = wb.create_sheet("Nesting")
     nh = ["Item", "Description", "Stock (mm)", "Pieces (w×h×n)", "Net area (sheet-eq.)", "Sheets to buy", "Utilisation %"]
@@ -355,9 +548,10 @@ def main():
         return
     if not a.input:
         ap.error("input JSON required (or --example)")
-    data = json.load(open(a.input, encoding="utf-8"))
+    data = json.load(open(a.input, encoding="utf-8-sig"))  # -sig: accept Windows UTF-8 BOM
     rows, nesting = compute(data)
-    write_xlsx(data, rows, nesting, a.out)
+    bom = build_bom(rows, nesting)
+    write_xlsx(data, rows, nesting, a.out, bom)
 
     cur = data["project"].get("currency", "SAR")
     print(f"BOQ written: {a.out}")
@@ -371,6 +565,15 @@ def main():
     for ns in nesting:
         print(f"Nesting {ns['id']}: {ns['sheets']} sheet(s) {ns['stock'][0]}x{ns['stock'][1]}, utilisation {ns['util']:.1f}%")
     print(f"TOTAL ({cur}, budgetary unless quoted): {grand:,.2f}")
+    print("BOM (Bill of Materials — what to buy):")
+    btot = 0.0
+    for g in bom:
+        btot += g["amount"] or 0
+        unit = f"bar {g['bar_m']:g}m" if g["punit"] == "bar" else g["punit"]
+        util = f"  util {g['util']:.1f}%" if g["util"] is not None else ""
+        print(f"  {g['no']:<6}{g['material'][:12]:<13}{g['spec'][:30]:<31}{g['qty']:>9.2f} {unit:<10}"
+              f"{(g['amount'] or 0):>12,.2f}{util}  [{', '.join(g['items'])}]")
+    print(f"BOM TOTAL ({cur}): {btot:,.2f}")
 
 
 if __name__ == "__main__":

@@ -41,7 +41,7 @@ Then load only the reference file(s) needed (table below). Start working once th
 - Interior layout, RCP, lighting calc, finishes/FF&E, joinery & ceilings → `rayen-interior-design`.
 - BIM / Revit / IFC audit / clash / BEP / LOD 300-400 models & checks → `rayen-bim` (+ revit-bim plugin skills inside Revit).
 - Renders and 3D visualization → `rayen-render` (Blender).
-- Quantities, BOQ, cutting list, nesting, cost → `rayen-boq-qto` (runs `qto.py`).
+- Quantities, BOQ, BOM (Bill of Materials / purchase list), cutting list, nesting, cost → `rayen-boq-qto` (runs `qto.py`; BOM sheet included).
 - Shop drawing / detail / DXF → `rayen-shop-drawing` (runs `shop_drawing.py`).
 - Fabrication parts, CNC/laser DXF, flat patterns → `rayen-fabrication` (runs `fab_parts.py`).
 - Any set going to a client or the factory → `rayen-newtech-template` (original Newtech identity).

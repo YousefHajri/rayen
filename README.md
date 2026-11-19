@@ -18,7 +18,7 @@
 | `rayen-fabrication` **جديد** | مخططات تصنيع: ملفات CNC/ليزر لكل قطعة (طبقات CUT/DRILL/BEND)، فرد الصاج بالـ Bend Allowance و K-factor، أطوال Returns للحروف، Parts list | `DXF` لكل قطعة + Parts sheet + `XLSX` |
 | `rayen-newtech-template` **جديد** | يضع أي مخرج داخل **قالب نيوتك الأصلي المعتمد**: الغلاف، اللوحات بالشعار وشريط العنوان و DWG الذهبي ولوحات (تعديلات التصميم / تفاصيل أمر العمل / تفاصيل التصميم / عدد الجونت)، صفحة الختام | `PDF` + `PNG` + إطار `DXF` |
 | `rayen-shop-drawing` | مولّد مخططات تنفيذية بارامتري: Lightbox، Pylon، Graphic Frame | `DXF` بطبقات + `PDF` + `PNG` + ملف كميات |
-| `rayen-boq-qto` | حصر كميات: أوزان الحديد، Nesting، الهدر منفصل، معادلات Excel حية | `XLSX` |
+| `rayen-boq-qto` | حصر كميات: أوزان الحديد، Nesting، الهدر منفصل، معادلات Excel حية + **BOM (Bill of Materials)**: قائمة المواد للشراء (بارات 6 م، ألواح، عبوات) مع نسبة الاستغلال والمورد | `XLSX` |
 | `rayen-reports` | تقرير أسبوعي من Drive و Gmail و Calendar و Notion | `DOCX` |
 | `rayen-rfi-submittal` | RFI، اعتماد مواد، Method Statement، رد NCR، Transmittal | `DOCX` + سجل |
 | Agent `rayen` | ينادي المهارة المناسبة تلقائياً عند مخاطبة "RAYEN" أو "رايان" | — |
@@ -111,7 +111,7 @@ python3 skills/rayen-architectural-design/scripts/space_program.py skills/rayen-
 python3 skills/rayen-newtech-template/scripts/newtech_sheet.py package.json -o "WO Drawings.pdf" --png
 # مخطط تنفيذي + ملف كميات
 python3 skills/rayen-shop-drawing/scripts/shop_drawing.py skills/rayen-shop-drawing/examples/pylon.json -o NT-SD-P01-R0 --qto p01-qto.json
-# BOQ من نفس الملف
+# BOQ + BOM من نفس الملف (ورقة BOM = ما يُشترى)
 python3 skills/rayen-boq-qto/scripts/qto.py p01-qto.json -o NT-P01-BOQ-R0.xlsx
 # تقرير أسبوعي
 python3 skills/rayen-reports/scripts/report.py skills/rayen-reports/examples/weekly-status.json -o Weekly-Report.docx

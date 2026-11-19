@@ -116,6 +116,7 @@
       "count": 8,
       "waste_pct": 7,
       "rate": 18,
+      "bar_length_m": 6.0,
       "source": "A-101 corner trims",
       "status": "CALCULATED"
     },
