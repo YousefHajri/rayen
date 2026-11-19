@@ -1,0 +1,12 @@
+{
+  "name": "rayen",
+  "owner": { "name": "YousefHajri" },
+  "plugins": [
+    {
+      "name": "rayen",
+      "source": "./",
+      "description": "RAYEN — Senior Architect & Technical Office agent: architectural & interior design, BIM LOD 300/400, renders, shop drawings, CNC fabrication, BOQ/QTO, RFIs/submittals, reports.",
+      "version": "0.3.0"
+    }
+  ]
+}

@@ -34,6 +34,12 @@ Brief ─▶ Program (XLSX) ─▶ Concept + Render (PNG) ─▶ Layout / RCP / 
 
 ## التثبيت
 
+### من GitHub داخل Claude Code (الأسرع)
+```
+/plugin marketplace add YousefHajri/rayen
+/plugin install rayen@rayen
+```
+
 ### 1) داخل تطبيق Claude (claude.ai / Desktop)
 1. حمّل ملف `rayen.plugin` من صفحة **Releases** أو من المحادثة.
 2. افتحه في Claude واضغط **Install / Accept**.
