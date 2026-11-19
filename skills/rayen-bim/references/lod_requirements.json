@@ -1,0 +1,32 @@
+{
+  "_doc": "RAYEN LOD requirements (BIMForum LOD Spec style, adapted for Newtech signage/fit-out). Each class: list of checks. LOD 400 inherits LOD 300. Check codes: name, type, storey (contained in storey or part of an assembly that is), material, body (Body representation exists), solid (Body is SweptSolid/Brep/AdvancedBrep - not BoundingBox), profile (swept profile is a named/parametric profile, not a generic rectangle), pset:Pset.Prop, qto:Qto.Prop, assembly (aggregated in an IfcElementAssembly), mark (NT_Fabrication.PartMark), classification (has a classification reference) . Severity: 'fail' or 'warn'.",
+  "300": {
+    "*": [["name","fail"],["storey","fail"],["material","fail"],["body","fail"],["solid","fail"],["type","warn"],["classification","warn"],["pset:NT_LOD.LOD","warn"]],
+    "IfcWall": [["pset:Pset_WallCommon.IsExternal","fail"],["pset:Pset_WallCommon.FireRating","fail"],["pset:Pset_WallCommon.LoadBearing","warn"],["qto:Qto_WallBaseQuantities.Length","warn"]],
+    "IfcSlab": [["pset:Pset_SlabCommon.LoadBearing","warn"],["qto:Qto_SlabBaseQuantities.Depth","warn"]],
+    "IfcColumn": [["pset:Pset_ColumnCommon.LoadBearing","warn"],["profile","warn"]],
+    "IfcBeam": [["pset:Pset_BeamCommon.LoadBearing","warn"],["profile","warn"]],
+    "IfcDoor": [["pset:Pset_DoorCommon.FireRating","fail"],["pset:Pset_DoorCommon.HandicapAccessible","warn"],["type","fail"]],
+    "IfcWindow": [["pset:Pset_WindowCommon.ThermalTransmittance","warn"],["type","fail"]],
+    "IfcCovering": [["pset:Pset_CoveringCommon.FireRating","warn"]],
+    "IfcCurtainWall": [["pset:Pset_CurtainWallCommon.IsExternal","warn"]],
+    "IfcBuildingElementProxy": [["pset:NT_Sign.SignType","fail"],["pset:NT_Sign.Width","fail"],["pset:NT_Sign.Height","fail"],["pset:NT_Sign.Depth","fail"],["pset:NT_Sign.Fixing","fail"],["pset:NT_Sign.Illuminated","warn"],["pset:Pset_ManufacturerTypeInformation.Manufacturer","warn"]],
+    "IfcElementAssembly": [["pset:NT_Sign.SignType","fail"],["pset:NT_Sign.Fixing","fail"]],
+    "IfcFurnishingElement": [["type","fail"],["pset:Pset_ManufacturerTypeInformation.Manufacturer","warn"]],
+    "IfcDuctSegment": [["pset:Pset_DuctSegmentTypeCommon.Shape","warn"]],
+    "IfcPipeSegment": [["pset:Pset_PipeSegmentTypeCommon.NominalDiameter","warn"]],
+    "IfcLightFixture": [["pset:Pset_LightFixtureTypeCommon.TotalWattage","warn"]]
+  },
+  "400": {
+    "*": [["mark","fail"],["pset:NT_Fabrication.MaterialGrade","fail"],["pset:NT_Fabrication.Weight_kg","fail"],["pset:NT_Fabrication.DrawingRef","fail"],["pset:NT_Fabrication.Finish","warn"],["pset:NT_Fabrication.Process","warn"],["assembly","fail"]],
+    "IfcMember": [["profile","fail"],["pset:NT_Fabrication.Length_mm","fail"],["qto:Qto_MemberBaseQuantities.Length","warn"]],
+    "IfcBeam": [["profile","fail"],["pset:NT_Fabrication.Length_mm","fail"]],
+    "IfcColumn": [["profile","fail"],["pset:NT_Fabrication.Length_mm","fail"]],
+    "IfcPlate": [["qto:Qto_PlateBaseQuantities.Thickness","fail"],["qto:Qto_PlateBaseQuantities.NetArea","warn"]],
+    "IfcMechanicalFastener": [["pset:Pset_MechanicalFastenerCommon.NominalDiameter","fail"],["pset:Pset_MechanicalFastenerCommon.NominalLength","fail"]],
+    "IfcElementAssembly": [["parts","fail"]],
+    "IfcBuildingElementProxy": [["pset:NT_Fabrication.MaterialGrade","fail"]]
+  },
+  "_skip_400_classes": ["IfcElementAssembly"],
+  "_exempt": ["IfcOpeningElement","IfcSpace","IfcSite","IfcVirtualElement","IfcAnnotation"]
+}

@@ -1,0 +1,137 @@
+{
+  "project": "LB-01 Lightbox — Newtech",
+  "drawing_no": "NT-FAB-LB01",
+  "rev": "R0",
+  "parts": [
+    {
+      "mark": "P1",
+      "kind": "plate",
+      "name": "Face panel",
+      "material": "Acrylic opal",
+      "thickness": 5,
+      "qty": 1,
+      "process": "CNC router",
+      "shape": {
+        "type": "rect",
+        "w": 2400,
+        "h": 800,
+        "corner_r": 10
+      },
+      "hole_pattern": {
+        "d": 5,
+        "edge": 12,
+        "max_pitch": 300
+      }
+    },
+    {
+      "mark": "T1",
+      "kind": "tray",
+      "name": "Back tray",
+      "material": "Aluminium 5052",
+      "thickness": 1.5,
+      "qty": 1,
+      "process": "Laser + press brake",
+      "W": 2400,
+      "H": 800,
+      "F": 150,
+      "R": 1.5,
+      "K": 0.33,
+      "holes": [
+        {
+          "x": 200,
+          "y": 400,
+          "d": 22,
+          "note": "cable gland"
+        }
+      ],
+      "relief_d": 4
+    },
+    {
+      "mark": "B1",
+      "kind": "plate",
+      "name": "Wall bracket",
+      "material": "GI steel",
+      "thickness": 3,
+      "qty": 6,
+      "process": "Laser + bend 90",
+      "shape": {
+        "type": "polygon",
+        "pts": [
+          [
+            0,
+            0
+          ],
+          [
+            120,
+            0
+          ],
+          [
+            120,
+            60
+          ],
+          [
+            80,
+            60
+          ],
+          [
+            80,
+            30
+          ],
+          [
+            0,
+            30
+          ]
+        ]
+      },
+      "holes": [
+        {
+          "x": 20,
+          "y": 15,
+          "d": 11
+        },
+        {
+          "x": 60,
+          "y": 15,
+          "d": 11
+        },
+        {
+          "x": 100,
+          "y": 45,
+          "d": 9
+        }
+      ],
+      "bends": [
+        {
+          "x1": 80,
+          "y1": 0,
+          "x2": 80,
+          "y2": 30,
+          "angle": 90,
+          "dir": "UP"
+        }
+      ]
+    },
+    {
+      "mark": "R1",
+      "kind": "strip",
+      "name": "Letter return 'N'",
+      "material": "Aluminium coil 1.0",
+      "thickness": 1.0,
+      "qty": 1,
+      "process": "Channel-letter bender",
+      "depth": 100,
+      "segments": [
+        400,
+        250,
+        400,
+        250
+      ],
+      "angles": [
+        90,
+        90,
+        90
+      ],
+      "flange_back": 10
+    }
+  ]
+}

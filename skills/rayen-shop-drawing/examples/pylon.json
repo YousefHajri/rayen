@@ -1,0 +1,34 @@
+{
+  "type": "pylon",
+  "project": "Retail Park — Pylon P-01",
+  "client": "Client",
+  "title": "DOUBLE-SIDED PYLON SIGN P-01 — SHOP DRAWING",
+  "drawing_no": "NT-SD-P01",
+  "rev": "R0",
+  "scale": 25,
+  "drawn_by": "RAYEN",
+  "checked_by": "A. Abdalla",
+  "width": 1500,
+  "height": 4500,
+  "depth": 400,
+  "frame": {
+    "section": "SHS 100x100x4",
+    "material": "Steel S275, HDG",
+    "max_spacing": 800,
+    "rail_section": "RHS 60x40x3"
+  },
+  "face": "ACP 4mm + cut vinyl / push-through acrylic logo",
+  "returns": "ACP 4mm",
+  "base": {
+    "plate": "PL 500x500x25",
+    "anchors": "4 x M24 cast-in",
+    "plinth_h": 300
+  },
+  "lighting": "Internal LED, PSU access door on side return",
+  "fixing": "Base plate on RC foundation — FOUNDATION & WIND DESIGN BY STRUCTURAL ENGINEER (SBC 301)",
+  "notes": [
+    "MISSION-CRITICAL: structural calculation required before fabrication.",
+    "All steel hot-dip galvanized + 2 coat paint.",
+    "Earthing per electrical spec."
+  ]
+}

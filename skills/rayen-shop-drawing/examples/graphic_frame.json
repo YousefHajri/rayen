@@ -1,0 +1,26 @@
+{
+  "type": "graphic_frame",
+  "project": "ALMAREEFA University — Basement",
+  "client": "Client",
+  "title": "GRAPHIC FRAME GF-01 — MAGNETIC FIXING DETAIL",
+  "drawing_no": "NT-SD-GF01",
+  "rev": "R0",
+  "scale": 5,
+  "drawn_by": "RAYEN",
+  "checked_by": "A. Abdalla",
+  "width": 1200,
+  "height": 900,
+  "depth": 30,
+  "frame": {
+    "section": "SHS 30x30x1.5",
+    "material": "Aluminum, powder coated",
+    "max_spacing": 9999
+  },
+  "face": "Acrylic 3mm clear over printed graphic",
+  "returns": "—",
+  "fixing": "Neodymium magnets embedded in EXISTING wood slats; steel plates on frame back",
+  "notes": [
+    "Existing wood slat positions TO BE CONFIRMED on site.",
+    "Magnet pull force per supplier data."
+  ]
+}

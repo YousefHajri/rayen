@@ -1,0 +1,83 @@
+{
+  "project": "Newtech HQ — fit-out brief",
+  "grossing_factor": 1.3,
+  "spaces": [
+    {
+      "zone": "Public",
+      "name": "Reception & waiting",
+      "qty": 1,
+      "area": 60,
+      "use": "assembly_unfixed"
+    },
+    {
+      "zone": "Public",
+      "name": "Showroom",
+      "qty": 1,
+      "area": 180,
+      "use": "exhibit"
+    },
+    {
+      "zone": "Work",
+      "name": "Open office workstation",
+      "qty": 40,
+      "area": 6.5,
+      "use": "business"
+    },
+    {
+      "zone": "Work",
+      "name": "Manager office",
+      "qty": 6,
+      "area": 14,
+      "use": "business"
+    },
+    {
+      "zone": "Work",
+      "name": "Meeting room (8p)",
+      "qty": 3,
+      "area": 22,
+      "use": "assembly_tables"
+    },
+    {
+      "zone": "Work",
+      "name": "Board room (16p)",
+      "qty": 1,
+      "area": 45,
+      "use": "assembly_tables"
+    },
+    {
+      "zone": "Support",
+      "name": "Pantry",
+      "qty": 2,
+      "area": 12,
+      "use": "accessory"
+    },
+    {
+      "zone": "Support",
+      "name": "Prayer room (M)",
+      "qty": 1,
+      "area": 25,
+      "use": "assembly_unfixed"
+    },
+    {
+      "zone": "Support",
+      "name": "Prayer room (F)",
+      "qty": 1,
+      "area": 15,
+      "use": "assembly_unfixed"
+    },
+    {
+      "zone": "Support",
+      "name": "Server / IT",
+      "qty": 1,
+      "area": 10,
+      "use": "accessory"
+    },
+    {
+      "zone": "Support",
+      "name": "Storage",
+      "qty": 2,
+      "area": 15,
+      "use": "storage"
+    }
+  ]
+}

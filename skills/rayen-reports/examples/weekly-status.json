@@ -1,0 +1,89 @@
+{
+  "lang": "ar",
+  "title": "تقرير الحالة الأسبوعي — المكتب الفني",
+  "period": "2026-11-15 → 2026-11-19",
+  "prepared_by": "RAYEN / عبدالقادر عبدالله",
+  "to": "المدير التنفيذي للمبيعات والمشاريع",
+  "headline": "3 مشاريع نشطة: مشروع واحد متأخر بسبب اعتماد Shop Drawing، وطلب RFI معلق منذ 6 أيام.",
+  "projects": [
+    {
+      "name": "جامعة المعرفة — لوحات داخلية",
+      "stage": "Fabrication",
+      "progress": 65,
+      "planned": 75,
+      "rag": "AMBER",
+      "status": "تصنيع الإطارات 30×30 جارٍ؛ الأكريليك بانتظار التوريد.",
+      "next": "استلام الأكريليك واعتماد عيّنة المغناطيس",
+      "due": "2026-11-24",
+      "owner": "المصنع / المشتريات",
+      "source": "Gmail: supplier thread 2026-11-16"
+    },
+    {
+      "name": "Retail Park — Pylon P-01",
+      "stage": "Shop Drawing",
+      "progress": 30,
+      "planned": 50,
+      "rag": "RED",
+      "status": "بانتظار الحسابات الإنشائية والأساسات قبل إصدار الـ Shop Drawing النهائي.",
+      "next": "استلام Structural calc من الاستشاري",
+      "due": "2026-11-20",
+      "owner": "الاستشاري الإنشائي",
+      "source": "Drive: P-01 folder, RFI-001"
+    },
+    {
+      "name": "Lightbox LB-01",
+      "stage": "Installation",
+      "progress": 90,
+      "planned": 90,
+      "rag": "GREEN",
+      "status": "التركيب مكتمل؛ متبقٍّ الفحص الكهربائي والتسليم.",
+      "next": "Snag & handover",
+      "due": "2026-11-21",
+      "owner": "فريق الموقع",
+      "source": "Calendar: site visit 2026-11-18"
+    }
+  ],
+  "open_items": [
+    {
+      "ref": "RFI-001",
+      "type": "RFI",
+      "subject": "ارتفاع البايلون 4200 مقابل 4000 في الـ BOQ",
+      "sent": "2026-11-11",
+      "days_open": 6,
+      "with": "الاستشاري",
+      "impact": "HIGH"
+    },
+    {
+      "ref": "SUB-014",
+      "type": "Submittal",
+      "subject": "عينة أكريليك 3mm شفاف",
+      "sent": "2026-11-14",
+      "days_open": 3,
+      "with": "العميل",
+      "impact": "MEDIUM"
+    }
+  ],
+  "actions": [
+    {
+      "action": "متابعة RFI-001 هاتفياً مع الاستشاري",
+      "owner": "عبدالقادر",
+      "due": "2026-11-18"
+    },
+    {
+      "action": "طلب عرض سعر ثانٍ للأكريليك لتقليل مدة التوريد",
+      "owner": "المشتريات",
+      "due": "2026-11-19"
+    }
+  ],
+  "risks": [
+    {
+      "risk": "تأخر الحسابات الإنشائية للبايلون",
+      "impact": "تأخير التسليم أسبوعين",
+      "level": "HIGH",
+      "mitigation": "تجهيز Shop Drawing بالمقاطع الأولية بالتوازي، والإصدار فور الاعتماد"
+    }
+  ],
+  "unverified": [
+    "نسبة الإنجاز في LB-01 من آخر زيارة موقع، لم تُحدَّث بعد 18/11."
+  ]
+}

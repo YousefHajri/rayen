@@ -1,0 +1,275 @@
+{
+  "name": "Newtech reception — concept",
+  "status": "CONCEPTUAL — not for construction",
+  "units": "mm",
+  "room": {
+    "width": 7000,
+    "depth": 6000,
+    "height": 3200,
+    "floor": "marble_white",
+    "walls": "paint_beige",
+    "ceiling": "paint_white",
+    "open_sides": [
+      "front"
+    ]
+  },
+  "materials": {
+    "brand_green": {
+      "color": "#2F6B4F",
+      "roughness": 0.6
+    }
+  },
+  "objects": [
+    {
+      "type": "box",
+      "name": "feature_wall_slats",
+      "size": [
+        4200,
+        60,
+        3200
+      ],
+      "pos": [
+        1400,
+        5940,
+        0
+      ],
+      "material": "walnut",
+      "array": {
+        "count": 28,
+        "step": [
+          150,
+          0,
+          0
+        ],
+        "size": [
+          60,
+          60,
+          3200
+        ]
+      }
+    },
+    {
+      "type": "box",
+      "name": "logo_panel",
+      "size": [
+        2400,
+        30,
+        700
+      ],
+      "pos": [
+        2300,
+        5880,
+        1700
+      ],
+      "material": "brushed_brass"
+    },
+    {
+      "type": "text",
+      "name": "logo",
+      "text": "NEWTECH",
+      "height": 320,
+      "depth": 40,
+      "pos": [
+        3500,
+        5860,
+        1880
+      ],
+      "facing": "-y",
+      "material": "led_white"
+    },
+    {
+      "type": "box",
+      "name": "counter_body",
+      "size": [
+        3000,
+        700,
+        1050
+      ],
+      "pos": [
+        2000,
+        3600,
+        0
+      ],
+      "material": "mdf_lacquer_white"
+    },
+    {
+      "type": "box",
+      "name": "counter_top",
+      "size": [
+        3100,
+        800,
+        30
+      ],
+      "pos": [
+        1950,
+        3550,
+        1050
+      ],
+      "material": "marble_black"
+    },
+    {
+      "type": "box",
+      "name": "counter_led",
+      "size": [
+        3000,
+        10,
+        20
+      ],
+      "pos": [
+        2000,
+        3590,
+        80
+      ],
+      "material": "led_warm"
+    },
+    {
+      "type": "box",
+      "name": "sofa",
+      "size": [
+        2200,
+        850,
+        420
+      ],
+      "pos": [
+        400,
+        600,
+        0
+      ],
+      "material": "fabric_green"
+    },
+    {
+      "type": "box",
+      "name": "sofa_back",
+      "size": [
+        2200,
+        200,
+        400
+      ],
+      "pos": [
+        400,
+        600,
+        420
+      ],
+      "material": "fabric_green"
+    },
+    {
+      "type": "cylinder",
+      "name": "coffee_table",
+      "radius": 450,
+      "height": 380,
+      "pos": [
+        1500,
+        2000,
+        0
+      ],
+      "material": "travertine"
+    },
+    {
+      "type": "cylinder",
+      "name": "planter",
+      "radius": 300,
+      "height": 600,
+      "pos": [
+        6300,
+        5300,
+        0
+      ],
+      "material": "concrete"
+    },
+    {
+      "type": "sphere",
+      "name": "plant",
+      "radius": 550,
+      "pos": [
+        6300,
+        5300,
+        1150
+      ],
+      "material": "plant"
+    }
+  ],
+  "lights": [
+    {
+      "type": "area",
+      "pos": [
+        3500,
+        3000,
+        3150
+      ],
+      "size": [
+        4000,
+        3000
+      ],
+      "watts": 900,
+      "kelvin": 4000
+    },
+    {
+      "type": "spot",
+      "pos": [
+        3500,
+        4800,
+        3150
+      ],
+      "target": [
+        3500,
+        5900,
+        2000
+      ],
+      "watts": 400,
+      "kelvin": 3000,
+      "angle": 40
+    },
+    {
+      "type": "sun",
+      "angle": [
+        50,
+        0,
+        160
+      ],
+      "strength": 3,
+      "kelvin": 5500
+    }
+  ],
+  "cameras": [
+    {
+      "name": "V01_entrance",
+      "pos": [
+        3500,
+        -2500,
+        1600
+      ],
+      "target": [
+        3500,
+        4000,
+        1300
+      ],
+      "lens": 24
+    },
+    {
+      "name": "V02_corner",
+      "pos": [
+        6500,
+        500,
+        1700
+      ],
+      "target": [
+        2500,
+        4500,
+        1000
+      ],
+      "lens": 20
+    }
+  ],
+  "render": {
+    "engine": "CYCLES",
+    "samples": 96,
+    "resolution": [
+      1600,
+      1000
+    ],
+    "exposure": -0.4,
+    "view_transform": "AgX",
+    "world_color": "#DDE6EE",
+    "world_strength": 0.6
+  }
+}

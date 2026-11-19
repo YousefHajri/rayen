@@ -1,0 +1,29 @@
+{
+  "type": "lightbox",
+  "project": "ALMAREEFA University — Interior Signage",
+  "client": "Client",
+  "title": "LIGHTBOX SIGN LB-01 — SHOP DRAWING",
+  "drawing_no": "NT-SD-LB01",
+  "rev": "R0",
+  "scale": 10,
+  "drawn_by": "RAYEN",
+  "checked_by": "A. Abdalla",
+  "width": 2400,
+  "height": 800,
+  "depth": 150,
+  "frame": {
+    "section": "RHS 40x20x1.5",
+    "material": "Aluminum",
+    "max_spacing": 600
+  },
+  "face": "Acrylic 5mm opal + printed vinyl",
+  "returns": "ACP 4mm (RAL 9005)",
+  "back": "Aluminum sheet 1.5mm",
+  "lighting": "LED modules 12V @ 100mm grid, PSU in service bay",
+  "fixing": "4 x M10 expansion anchors to RC wall — substrate TO BE CONFIRMED",
+  "notes": [
+    "All dimensions in mm unless noted.",
+    "Verify all site dimensions before fabrication.",
+    "Electrical works by licensed electrician; IP65 outdoor components."
+  ]
+}

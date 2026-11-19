@@ -1,0 +1,27 @@
+# RAYEN / Newtech — Revit IFC exporter "User defined property sets" file.
+# Revit: IFC Export > Modify Setup > Property Sets > Export user defined property sets > select this file.
+# Maps the NT_* shared parameters (NT_SharedParameters.txt) to the Psets read by lod_check.py / ifc_audit.py.
+# Format: PropertySet:<TAB>Name<TAB>I|T<TAB>IfcClasses ;  property lines: <TAB>IfcName<TAB>Type<TAB>RevitParameter
+PropertySet:	NT_LOD	I	IfcElement
+	LOD	Text	NT_LOD
+	Stage	Text	NT_LOD_Stage
+	ModelAuthor	Text	NT_ModelAuthor
+	Verified	Boolean	NT_LOD_Verified
+PropertySet:	NT_Sign	I	IfcBuildingElementProxy,IfcFurnishingElement,IfcElementAssembly
+	SignType	Text	NT_SignType
+	MessageAR	Text	NT_Message_AR
+	MessageEN	Text	NT_Message_EN
+	Illuminated	Boolean	NT_Illuminated
+	Power_W	Real	NT_Power_W
+	Fixing	Text	NT_Fixing
+	MountHeight	Length	NT_MountHeight
+	Status	Text	NT_Status
+PropertySet:	NT_Fabrication	I	IfcMember,IfcPlate,IfcBeam,IfcColumn,IfcBuildingElementProxy,IfcFurnishingElement,IfcMechanicalFastener
+	PartMark	Text	NT_PartMark
+	AssemblyMark	Text	NT_AssemblyMark
+	Profile	Text	NT_Profile
+	MaterialGrade	Text	NT_MaterialGrade
+	Finish	Text	NT_Finish
+	Weight_kg	Real	NT_Weight_kg
+	Process	Text	NT_Process
+	DrawingRef	Text	NT_DrawingRef

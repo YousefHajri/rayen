@@ -1,0 +1,47 @@
+{
+  "project": "Newtech showroom",
+  "mf": 0.8,
+  "workplane_m": 0.8,
+  "rooms": [
+    {
+      "name": "Showroom",
+      "use": "showroom",
+      "length": 12,
+      "width": 8,
+      "ceiling_h": 3.2,
+      "luminaire": {
+        "model": "LED downlight 30W (ASSUMED)",
+        "lumens": 3300,
+        "watts": 30,
+        "lamps": 1
+      }
+    },
+    {
+      "name": "Open office",
+      "use": "office_open",
+      "length": 10,
+      "width": 6,
+      "ceiling_h": 2.9,
+      "luminaire": {
+        "model": "LED panel 600x600 36W (ASSUMED)",
+        "lumens": 4000,
+        "watts": 36,
+        "lamps": 1
+      },
+      "uf": 0.6
+    },
+    {
+      "name": "Corridor",
+      "use": "corridor",
+      "length": 15,
+      "width": 1.8,
+      "ceiling_h": 2.7,
+      "luminaire": {
+        "model": "LED downlight 12W (ASSUMED)",
+        "lumens": 1200,
+        "watts": 12,
+        "lamps": 1
+      }
+    }
+  ]
+}

@@ -1,0 +1,173 @@
+{
+  "project": {
+    "name": "Example — Pylon Sign P-01",
+    "client": "Client name",
+    "ref": "NT-QTO-0001",
+    "revision": "R0",
+    "prepared_by": "RAYEN / Abdelgadir Abdalla",
+    "currency": "SAR",
+    "sources": [
+      "DWG A-101 R0 (pylon elevation)",
+      "Spec section 10 14 00"
+    ]
+  },
+  "items": [
+    {
+      "id": "1.1",
+      "description": "Main frame posts",
+      "material": "Steel",
+      "section": "SHS 100x100x4",
+      "unit": "kg",
+      "length_m": 4.2,
+      "count": 4,
+      "waste_pct": 5,
+      "rate": 6.5,
+      "source": "A-101 elevation, H=4200",
+      "status": "VERIFIED"
+    },
+    {
+      "id": "1.2",
+      "description": "Horizontal rails",
+      "material": "Steel",
+      "section": "RHS 60x40x3",
+      "unit": "kg",
+      "length_m": 1.6,
+      "count": 10,
+      "waste_pct": 5,
+      "rate": 6.5,
+      "source": "A-101, 5 levels x 2 faces",
+      "status": "CALCULATED"
+    },
+    {
+      "id": "1.3",
+      "description": "Base plate",
+      "material": "Steel",
+      "section": "PL 400x400x20",
+      "unit": "kg",
+      "length_m": 0.4,
+      "count": 2,
+      "waste_pct": 5,
+      "rate": 7.0,
+      "source": "TO BE CONFIRMED by structural engineer",
+      "status": "ASSUMED"
+    },
+    {
+      "id": "2.1",
+      "description": "ACP cladding 4mm (two faces + sides)",
+      "material": "ACP 4mm",
+      "unit": "sheet",
+      "stock": [
+        1220,
+        2440
+      ],
+      "kerf_mm": 4,
+      "allow_rotation": true,
+      "pieces": [
+        {
+          "w": 1200,
+          "h": 2100,
+          "n": 4
+        },
+        {
+          "w": 300,
+          "h": 2100,
+          "n": 4
+        },
+        {
+          "w": 1200,
+          "h": 2100,
+          "n": 2
+        }
+      ],
+      "waste_pct": 0,
+      "rate": 240,
+      "source": "A-101 cladding panels",
+      "status": "CALCULATED"
+    },
+    {
+      "id": "2.2",
+      "description": "Acrylic face 5mm opal (logo box)",
+      "material": "Acrylic 5mm",
+      "unit": "sheet",
+      "stock": [
+        1220,
+        2440
+      ],
+      "kerf_mm": 3,
+      "allow_rotation": true,
+      "pieces": [
+        {
+          "w": 1100,
+          "h": 900,
+          "n": 2
+        }
+      ],
+      "waste_pct": 0,
+      "rate": 520,
+      "source": "A-102 logo box",
+      "status": "CALCULATED"
+    },
+    {
+      "id": "3.1",
+      "description": "Aluminum angle trim 25x25x2",
+      "material": "Aluminum",
+      "unit": "m",
+      "length_m": 4.2,
+      "count": 8,
+      "waste_pct": 7,
+      "rate": 18,
+      "source": "A-101 corner trims",
+      "status": "CALCULATED"
+    },
+    {
+      "id": "3.2",
+      "description": "Vinyl graphics (printed, laminated)",
+      "material": "Vinyl",
+      "unit": "m2",
+      "length_m": 1.1,
+      "width_m": 0.9,
+      "count": 2,
+      "waste_pct": 10,
+      "rate": 85,
+      "source": "A-102",
+      "status": "CALCULATED"
+    },
+    {
+      "id": "4.1",
+      "description": "LED module 12V 1.2W",
+      "material": "Electrical",
+      "unit": "nos",
+      "count": 160,
+      "waste_pct": 5,
+      "rate": 3.2,
+      "source": "Spacing 80mm ASSUMED — confirm with supplier",
+      "status": "ASSUMED"
+    },
+    {
+      "id": "4.2",
+      "description": "Anchor bolt M20 chemical (HIT-RE or equal)",
+      "material": "Fixings",
+      "unit": "nos",
+      "count": 8,
+      "waste_pct": 0,
+      "rate": 55,
+      "source": "TO BE CONFIRMED — structural design",
+      "status": "TO BE CONFIRMED"
+    }
+  ],
+  "conflicts": [
+    {
+      "id": "C-01",
+      "element": "Pylon height",
+      "source_a": "A-101: 4200 mm",
+      "source_b": "BOQ item 1: 4000 mm",
+      "impact": "Steel and cladding quantities +5%",
+      "resolution": "Issue RFI-001; quantities use A-101",
+      "severity": "MEDIUM"
+    }
+  ],
+  "assumptions": [
+    "Waste allowances are Newtech defaults until factory data replaces them.",
+    "Rates are budgetary estimates, not supplier quotations."
+  ]
+}

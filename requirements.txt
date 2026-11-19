@@ -1,0 +1,14 @@
+# RAYEN v0.2 — Python packages (Python 3.11+; bpy 5.x needs Python 3.13 exactly)
+ezdxf>=1.3
+openpyxl>=3.1
+python-docx>=1.1
+matplotlib>=3.9          # 3.11+ shapes Arabic natively
+pillow>=10
+numpy>=1.26
+ifcopenshell>=0.8        # IFC audit + IFC->render
+trimesh>=4
+arabic-reshaper>=3.0
+python-bidi>=0.4
+pymupdf>=1.24            # read/render PDF drawings and templates
+# optional, large (~430 MB): Blender as a Python module for photoreal renders
+# bpy==5.3.0             # install with:  pip install bpy   (or use installed Blender: blender -b -P render.py -- ...)
