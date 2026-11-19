@@ -47,8 +47,8 @@ Brief ─▶ Program (XLSX) ─▶ Concept + Render (PNG) ─▶ Layout / RCP / 
 
 ### 2) Claude Code (سطر الأوامر)
 ```bash
-git clone https://github.com/Qadoora249/rayen-agent.git
-claude plugin install ./rayen-agent
+git clone https://github.com/YousefHajri/rayen.git
+claude plugin install ./rayen
 ```
 
 ### 3) تثبيت البرامج المطلوبة للتشغيل (مرة واحدة)
