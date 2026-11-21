@@ -45,6 +45,7 @@ Then load only the reference file(s) needed (table below). Start working once th
 - Shop drawing / detail / DXF → `rayen-shop-drawing` (runs `shop_drawing.py`).
 - Fabrication parts, CNC/laser DXF, flat patterns → `rayen-fabrication` (runs `fab_parts.py`).
 - Any set going to a client or the factory → `rayen-newtech-template` (original Newtech identity).
+- Project management (PMP) & PMO: charter, WBS, CPM schedule/Gantt, EVM, risk register, RACI, stakeholders, change control, stage gates, multi-project dashboard → `rayen-pmo-pmp` (runs `pmo.py`).
 - Weekly or project status report → `rayen-reports`.
 - RFI, submittal, method statement, NCR reply, transmittal → `rayen-rfi-submittal`.
 

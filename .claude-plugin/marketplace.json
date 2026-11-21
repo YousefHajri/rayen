@@ -5,8 +5,8 @@
     {
       "name": "rayen",
       "source": "./",
-      "description": "RAYEN — Senior Architect & Technical Office agent: architectural & interior design, BIM LOD 300/400, renders, shop drawings, CNC fabrication, BOQ/QTO, BOM, RFIs/submittals, reports.",
-      "version": "0.4.0"
+      "description": "RAYEN — Senior Architect & Technical Office agent: architectural & interior design, BIM LOD 300/400, renders, shop drawings, CNC fabrication, BOQ/QTO, BOM, RFIs/submittals, PMO/PMP (CPM, EVM, risks), reports.",
+      "version": "0.5.0"
     }
   ]
 }

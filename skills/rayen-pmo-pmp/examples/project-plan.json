@@ -1,0 +1,400 @@
+{
+  "project": {
+    "name": "Retail Park — Pylon Sign P-01",
+    "code": "NT-P01",
+    "client": "Client name",
+    "sponsor": "Projects Manager",
+    "pm": "PM name",
+    "currency": "SAR",
+    "start": "2026-11-01",
+    "contract_end": "2026-12-31",
+    "status_date": "2026-11-21",
+    "weekend": [
+      4,
+      5
+    ],
+    "holidays": [],
+    "objectives": [
+      "Supply and install pylon P-01 per approved shop drawings by 31-Dec-2026 within budget"
+    ],
+    "scope_in": [
+      "Shop drawings + structural calc",
+      "Fabrication",
+      "Foundation",
+      "Installation",
+      "Testing & handover"
+    ],
+    "scope_out": [
+      "Power supply to the sign location (by client)",
+      "Municipality fees"
+    ],
+    "constraints": [
+      "Crane access only Fri night (ASSUMED — confirm with mall management)"
+    ],
+    "assumptions": [
+      "Consultant reviews shop drawings within 7 working days"
+    ],
+    "success_criteria": [
+      "Acceptance certificate signed",
+      "Zero lost-time incidents",
+      "CPI ≥ 0.95"
+    ],
+    "source": "LOA ref (TO BE CONFIRMED); BOQ NT-QTO-0001 R0"
+  },
+  "tasks": [
+    {
+      "id": "1.1",
+      "name": "Award / LOA",
+      "duration_d": 0,
+      "owner": "Client",
+      "pct_complete": 100
+    },
+    {
+      "id": "1.2",
+      "name": "Charter & kick-off",
+      "duration_d": 1,
+      "predecessors": [
+        "1.1"
+      ],
+      "owner": "PM",
+      "budget": 1500,
+      "pct_complete": 100,
+      "actual_cost": 1500
+    },
+    {
+      "id": "2.1",
+      "name": "Site survey",
+      "duration_d": 2,
+      "predecessors": [
+        "1.2"
+      ],
+      "owner": "Design",
+      "budget": 2500,
+      "pct_complete": 100,
+      "actual_cost": 2600
+    },
+    {
+      "id": "2.2",
+      "name": "Shop drawings",
+      "duration_d": 5,
+      "predecessors": [
+        "2.1"
+      ],
+      "owner": "Design",
+      "budget": 6000,
+      "pct_complete": 100,
+      "actual_cost": 7000
+    },
+    {
+      "id": "2.3",
+      "name": "Structural calculation (consultant)",
+      "duration_d": 6,
+      "predecessors": [
+        "2.1"
+      ],
+      "owner": "Structural consultant",
+      "budget": 4000,
+      "pct_complete": 50,
+      "actual_cost": 2500
+    },
+    {
+      "id": "2.4",
+      "name": "Shop drawing approval",
+      "duration_d": 7,
+      "predecessors": [
+        "2.2",
+        "2.3"
+      ],
+      "owner": "Consultant",
+      "pct_complete": 20
+    },
+    {
+      "id": "3.1",
+      "name": "Material submittal & approval",
+      "duration_d": 5,
+      "predecessors": [
+        "2.2"
+      ],
+      "owner": "Procurement",
+      "budget": 1000,
+      "pct_complete": 60,
+      "actual_cost": 800
+    },
+    {
+      "id": "3.2",
+      "name": "LED & acrylic procurement (imported)",
+      "duration_d": 15,
+      "predecessors": [
+        "3.1",
+        "2.4"
+      ],
+      "owner": "Procurement",
+      "budget": 22000,
+      "pct_complete": 0
+    },
+    {
+      "id": "4.1",
+      "name": "Steel frame fabrication",
+      "duration_d": 8,
+      "predecessors": [
+        "2.4"
+      ],
+      "owner": "Factory",
+      "budget": 18000,
+      "pct_complete": 0
+    },
+    {
+      "id": "4.2",
+      "name": "Cladding & faces fabrication",
+      "duration_d": 6,
+      "predecessors": [
+        "3.2",
+        "4.1"
+      ],
+      "owner": "Factory",
+      "budget": 14000,
+      "pct_complete": 0
+    },
+    {
+      "id": "4.3",
+      "name": "Factory QC & sample approval",
+      "duration_d": 2,
+      "predecessors": [
+        "4.2"
+      ],
+      "owner": "QA/QC",
+      "budget": 1500,
+      "pct_complete": 0
+    },
+    {
+      "id": "5.1",
+      "name": "Municipality permit (Balady)",
+      "duration_d": 10,
+      "predecessors": [
+        "2.4"
+      ],
+      "owner": "Client",
+      "budget": 2000,
+      "pct_complete": 0
+    },
+    {
+      "id": "5.2",
+      "name": "Foundation & anchor bolts",
+      "duration_d": 4,
+      "predecessors": [
+        "5.1",
+        "2.3"
+      ],
+      "owner": "Site",
+      "budget": 9000,
+      "pct_complete": 0
+    },
+    {
+      "id": "5.3",
+      "name": "Installation (crane)",
+      "duration_d": 3,
+      "predecessors": [
+        "4.3",
+        "5.2+2"
+      ],
+      "owner": "Site",
+      "budget": 7000,
+      "pct_complete": 0
+    },
+    {
+      "id": "6.1",
+      "name": "Testing & commissioning",
+      "duration_d": 1,
+      "predecessors": [
+        "5.3"
+      ],
+      "owner": "Electrical",
+      "budget": 1000,
+      "pct_complete": 0
+    },
+    {
+      "id": "6.2",
+      "name": "Snag list close-out",
+      "duration_d": 2,
+      "predecessors": [
+        "6.1"
+      ],
+      "owner": "Site",
+      "budget": 1000,
+      "pct_complete": 0
+    },
+    {
+      "id": "6.3",
+      "name": "Handover / acceptance",
+      "duration_d": 0,
+      "predecessors": [
+        "6.2"
+      ],
+      "owner": "Client",
+      "pct_complete": 0
+    }
+  ],
+  "risks": [
+    {
+      "id": "R-01",
+      "description": "Consultant delays shop drawing approval → fabrication cannot start → end date slips",
+      "category": "Schedule",
+      "probability": 4,
+      "impact": 4,
+      "response": "Mitigate",
+      "action": "Pre-submission meeting; daily follow-up; partial approval for steel",
+      "owner": "PM",
+      "due": "2026-11-25",
+      "status": "Open"
+    },
+    {
+      "id": "R-02",
+      "description": "Imported LED/acrylic arrives late → cladding fabrication delayed",
+      "category": "Procurement",
+      "probability": 3,
+      "impact": 4,
+      "response": "Mitigate",
+      "action": "Order on submittal approval; local alternative quoted",
+      "owner": "Procurement",
+      "due": "2026-11-30",
+      "status": "Open"
+    },
+    {
+      "id": "R-03",
+      "description": "Foundation design not issued → anchor bolts and installation delayed",
+      "category": "Structural",
+      "probability": 3,
+      "impact": 5,
+      "response": "Escalate",
+      "action": "Escalate to client; RFI-001",
+      "owner": "Structural consultant",
+      "due": "2026-11-24",
+      "status": "Open"
+    },
+    {
+      "id": "R-04",
+      "description": "Crane lift over public area",
+      "category": "Safety",
+      "probability": 2,
+      "impact": 5,
+      "response": "Mitigate",
+      "action": "Lifting plan, barricades, certified operator, permit to work",
+      "owner": "HSE",
+      "due": "2026-12-15",
+      "status": "Open"
+    }
+  ],
+  "stakeholders": [
+    {
+      "name": "Client",
+      "role": "Owner / approver",
+      "power": "High",
+      "interest": "High",
+      "current": "Supportive",
+      "desired": "Leading",
+      "communication": "Weekly report + meeting"
+    },
+    {
+      "name": "Consultant",
+      "role": "Shop drawing reviewer",
+      "power": "High",
+      "interest": "Medium",
+      "current": "Neutral",
+      "desired": "Supportive",
+      "communication": "Transmittals, follow-up calls"
+    },
+    {
+      "name": "Mall management",
+      "role": "Site access, crane permit",
+      "power": "Medium",
+      "interest": "Medium",
+      "current": "Unaware",
+      "desired": "Supportive",
+      "communication": "Letter + site meeting"
+    },
+    {
+      "name": "Newtech factory",
+      "role": "Fabrication",
+      "power": "Medium",
+      "interest": "High",
+      "current": "Supportive",
+      "desired": "Supportive",
+      "communication": "Daily production meeting"
+    }
+  ],
+  "raci": {
+    "roles": [
+      "PM",
+      "Design",
+      "Factory",
+      "Procurement",
+      "Client/Consultant"
+    ],
+    "rows": [
+      {
+        "activity": "Shop drawings",
+        "assign": {
+          "PM": "A",
+          "Design": "R",
+          "Client/Consultant": "C",
+          "Factory": "C"
+        }
+      },
+      {
+        "activity": "Shop drawing approval",
+        "assign": {
+          "PM": "R",
+          "Client/Consultant": "A",
+          "Design": "C"
+        }
+      },
+      {
+        "activity": "Procurement",
+        "assign": {
+          "PM": "A",
+          "Procurement": "R",
+          "Factory": "C"
+        }
+      },
+      {
+        "activity": "Fabrication & QC",
+        "assign": {
+          "PM": "A",
+          "Factory": "R",
+          "Design": "C",
+          "Client/Consultant": "I"
+        }
+      },
+      {
+        "activity": "Installation & handover",
+        "assign": {
+          "PM": "A",
+          "Factory": "R",
+          "Client/Consultant": "C"
+        }
+      }
+    ]
+  },
+  "changes": [
+    {
+      "id": "CR-01",
+      "date": "2026-11-18",
+      "description": "Client requests dimmable night lighting",
+      "requested_by": "Client",
+      "cost_impact": 3500,
+      "schedule_impact_d": 2,
+      "status": "Pending"
+    }
+  ],
+  "issues": [
+    {
+      "id": "I-01",
+      "description": "Structural calc 50% — consultant awaiting soil report",
+      "owner": "Client",
+      "priority": "High",
+      "due": "2026-11-24",
+      "status": "Open"
+    }
+  ],
+  "lessons": []
+}

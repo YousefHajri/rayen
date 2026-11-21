@@ -34,6 +34,8 @@ r = [f for f in os.listdir(os.path.join(out, "renders")) if f.endswith(".png")] 
 pkg["sheets"][1]["views"][0]["file"] = os.path.join(out, "renders", r[0]) if r else "missing.png"
 json.dump(pkg, open(os.path.join(out, "pkg.json"), "w", encoding="utf-8"), ensure_ascii=False)
 ok &= run("Newtech template set", [S("rayen-newtech-template/scripts/newtech_sheet.py"), "pkg.json", "-o", "Newtech-Set.pdf", "--png"])
+ok &= run("PMO project workbook", [S("rayen-pmo-pmp/scripts/pmo.py"), S("rayen-pmo-pmp/examples/project-plan.json"), "-o", "pm-workbook.xlsx"])
+ok &= run("PMO portfolio", [S("rayen-pmo-pmp/scripts/pmo.py"), S("rayen-pmo-pmp/examples/project-plan.json"), S("rayen-pmo-pmp/examples/project-plan.json"), "--portfolio", "-o", "pmo-dashboard.xlsx"])
 ok &= run("report", [S("rayen-reports/scripts/report.py"), S("rayen-reports/examples/weekly-status.json"), "-o", "weekly.docx"])
 print("ALL PASS" if ok else "SOME CHECKS FAILED", "→", out)
 sys.exit(0 if ok else 1)

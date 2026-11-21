@@ -19,6 +19,7 @@
 | `rayen-newtech-template` **جديد** | يضع أي مخرج داخل **قالب نيوتك الأصلي المعتمد**: الغلاف، اللوحات بالشعار وشريط العنوان و DWG الذهبي ولوحات (تعديلات التصميم / تفاصيل أمر العمل / تفاصيل التصميم / عدد الجونت)، صفحة الختام | `PDF` + `PNG` + إطار `DXF` |
 | `rayen-shop-drawing` | مولّد مخططات تنفيذية بارامتري: Lightbox، Pylon، Graphic Frame | `DXF` بطبقات + `PDF` + `PNG` + ملف كميات |
 | `rayen-boq-qto` | حصر كميات: أوزان الحديد، Nesting، الهدر منفصل، معادلات Excel حية + **BOM (Bill of Materials)**: قائمة المواد للشراء (بارات 6 م، ألواح، عبوات) مع نسبة الاستغلال والمورد | `XLSX` |
+| `rayen-pmo-pmp` **جديد** | إدارة مشاريع PMP + مكتب PMO: ميثاق المشروع، WBS، جدول زمني بالمسار الحرج (CPM) و Gantt، القيمة المكتسبة EVM (CPI/SPI/EAC)، سجل المخاطر، RACI، أصحاب المصلحة، طلبات التغيير، Stage Gates، ولوحة PMO لعدة مشاريع | `XLSX` مصنّف المشروع + لوحة PMO |
 | `rayen-reports` | تقرير أسبوعي من Drive و Gmail و Calendar و Notion | `DOCX` |
 | `rayen-rfi-submittal` | RFI، اعتماد مواد، Method Statement، رد NCR، Transmittal | `DOCX` + سجل |
 | Agent `rayen` | ينادي المهارة المناسبة تلقائياً عند مخاطبة "RAYEN" أو "رايان" | — |
@@ -27,7 +28,7 @@
 ```
 Brief ─▶ Program (XLSX) ─▶ Concept + Render (PNG) ─▶ Layout / RCP / Lighting (XLSX)
    ─▶ BIM / IFC audit ─▶ Shop Drawing (DXF) ─▶ Fabrication CNC parts (DXF) ─▶ BOQ (XLSX)
-   ─▶ Newtech Drawing Set (PDF بقالب نيوتك الأصلي) ─▶ RFI / Submittal ─▶ Weekly Report
+   ─▶ Newtech Drawing Set (PDF بقالب نيوتك الأصلي) ─▶ RFI / Submittal ─▶ PMO (CPM + EVM) ─▶ Weekly Report
 ```
 
 ---
@@ -114,6 +115,9 @@ python3 skills/rayen-shop-drawing/scripts/shop_drawing.py skills/rayen-shop-draw
 # BOQ + BOM من نفس الملف (ورقة BOM = ما يُشترى)
 python3 skills/rayen-boq-qto/scripts/qto.py p01-qto.json -o NT-P01-BOQ-R0.xlsx
 # تقرير أسبوعي
+# PMO / PMP: مصنّف المشروع ولوحة عدة مشاريع
+python3 skills/rayen-pmo-pmp/scripts/pmo.py skills/rayen-pmo-pmp/examples/project-plan.json -o P01-PM-Workbook.xlsx
+python3 skills/rayen-pmo-pmp/scripts/pmo.py p1.json p2.json --portfolio -o PMO-Dashboard.xlsx
 python3 skills/rayen-reports/scripts/report.py skills/rayen-reports/examples/weekly-status.json -o Weekly-Report.docx
 ```
 

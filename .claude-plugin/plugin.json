@@ -1,7 +1,7 @@
 {
   "name": "rayen",
-  "version": "0.4.0",
-  "description": "RAYEN — Senior Architect & Technical Office agent for Newtech (signage, LED displays, interior fit-out). Architectural & interior design, BIM LOD 300/400 model building & checking, IFC audit & clash, Blender photoreal renders, shop drawings (DXF), CNC fabrication parts & flat patterns, BOQ/QTO (XLSX), lighting & space-program calcs, RFIs/submittals, reports — all issued in the original Newtech drawing template.",
+  "version": "0.5.0",
+  "description": "RAYEN — Senior Architect & Technical Office agent for Newtech (signage, LED displays, interior fit-out). Architectural & interior design, BIM LOD 300/400 model building & checking, IFC audit & clash, Blender photoreal renders, shop drawings (DXF), CNC fabrication parts & flat patterns, BOQ/QTO (XLSX), lighting & space-program calcs, RFIs/submittals, PMP project management & PMO dashboards (CPM, EVM, risks), reports — all issued in the original Newtech drawing template.",
   "author": {
     "name": "Abdelgadir Abdalla"
   },
@@ -26,6 +26,11 @@
     "lighting-design",
     "lod-300",
     "lod-400",
+    "pmo",
+    "pmp",
+    "project-management",
+    "earned-value",
+    "critical-path",
     "newtech",
     "newtech-template",
     "qto",
